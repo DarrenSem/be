@@ -65,7 +65,7 @@ $(function() {
 
     let elGitHub = qsel("#github") || (
       qsel("#theme-toggle-wrapper").insertAdjacentHTML('afterbegin',
-        '<div id="github" style="padding-right: 32px;"><a href="https://github.com/darrensem/beautifier/"><img style="height:24px" src="web/GitHub-Mark-32px.png"></a></div>'
+        '<div id="github" style="padding-right: 32px;"><a href="https://github.com/darrensem/beautifier/"><img style="height:24px" alt="GitHub" src="web/GitHub-Mark-32px.png"></a></div>'
       ), qsel("#github")
     );
 
@@ -76,7 +76,6 @@ $(function() {
     };
 
     if (!elGitHub.title) {
-      debugger;
       elGitHub.title = elGitHub.alt = "source code on GitHub (based on 04Mar2025 snapshot of beautifier.io)";
       qsel("#theme-toggle-btn").addEventListener("change", updateGitHubImage);
     };
