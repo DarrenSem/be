@@ -2,9 +2,10 @@
 $(function() {
 
   read_settings_from_cookie();
-  $.getJSON("./package.json", function(data) {
-    $('#version-number').text('(v' + data.version + ')');
-  });
+  // $.getJSON("./package.json", function(data) {
+  //   $('#version-number').text('(v' + data.version + ')');
+  // });
+  $('#version-number').text('(v1.15.4)');
 
   var default_text =
     "// This is just a sample script. Paste your real code (javascript or HTML) here.\n\nif ('this_is'==/an_example/){of_beautifier();}else{var a=b?(c%d):e[f];}";
@@ -53,6 +54,43 @@ $(function() {
   $('select').change(beautify);
   $(':checkbox').change(beautify);
   $('#additional-options').change(beautify);
+
+
+
+
+  var addGitHubAndFixWithoutCodemirror = () => {
+
+    // let qsel = (sel, root) => (root || document).querySelector(sel);
+    let qsel = (sel, root) => $(sel, root)[0];
+
+    let elGitHub = qsel("#github") || (
+      qsel("#theme-toggle-wrapper").insertAdjacentHTML('afterbegin',
+        '<div id="github" style="padding-right: 32px;"><a href="https://github.com/darrensem/beautifier/"><img style="height:24px" src="web/GitHub-Mark-32px.png"></a></div>'
+      ), qsel("#github")
+    );
+
+    let updateGitHubImage = () => {
+      qsel("img", elGitHub).src = "web/GitHub-Mark-" + (
+        document.body.classList.contains("dark-mode") ? "Light-" : ""
+      ) + "32px.png";
+    };
+
+    if (!elGitHub.title) {
+      debugger;
+      elGitHub.title = elGitHub.alt = "source code on GitHub (based on 04Mar2025 snapshot of beautifier.io)";
+      qsel("#theme-toggle-btn").addEventListener("change", updateGitHubImage);
+    };
+
+    updateGitHubImage();
+
+    (
+      /[&\?]without-codemirror\b/.test(location) &&
+      qsel('a[href="?without-codemirror"]')
+      || {}
+    ).href = location.pathname;
+
+  };
+  addGitHubAndFixWithoutCodemirror();
 
 
 
